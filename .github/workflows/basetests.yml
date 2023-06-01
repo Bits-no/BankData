@@ -1,0 +1,19 @@
+name: .NET
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+      - name: Install dependencies
+        run: dotnet restore NET || (ls -lha && exit 1)
+      - name: Build
+        run: dotnet build NET --configuration Release --no-restore --verbosity normal || dotnet build NET --configuration Release --no-restore --verbosity detailed
+      - name: Run Tests
+        run: dotnet test NET --configuration Release --no-restore --verbosity normal || (ls -lha && exit 1)
