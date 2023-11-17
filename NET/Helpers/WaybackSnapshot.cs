@@ -17,9 +17,37 @@ public class WaybackSnapshot
 #endif
     }
 
+    public static async Task<WaybackSnapshot?> GetArchiveDataNoExceptions(Uri url, string? filterMime = "application/pdf")
+    {
+        try
+        {
+            return await GetArchiveData(url, filterMime);
+        }
+        catch (Exception ex)
+        {
+            if (ex.InnerException is not HttpRequestException)
+                throw;
+            Console.WriteLine($"{ex}");
+            return null;
+        }
+    }
+
     public static async Task<WaybackSnapshot?> GetArchiveData(Uri url, string? filterMime = "application/pdf")
     {
-        using var s = await HttpClient.GetStreamAsync($"{ArchiveBase}cdx/search/cdx?fl=timestamp,original,mimetype,digest,length&from={DateTime.Now.Year - 1}&filter=statuscode:200&collapse=digest&url={url}");
+        var archiveUrl = new Uri($"{ArchiveBase}cdx/search/cdx?fl=timestamp,original,mimetype,digest,length&from={DateTime.Now.Year - 1}&filter=statuscode:200&collapse=digest&url={url}");
+        try
+        {
+            return await GetParseArchiveInner(archiveUrl, filterMime);
+        }
+        catch (HttpRequestException ex)
+        {
+            throw new Exception($"Wayback fetch Fail {archiveUrl}, {ex.Message}", ex);
+        }
+    }
+
+    private static async Task<WaybackSnapshot?> GetParseArchiveInner(Uri archiveUrl, string? filterMime)
+    {
+        using var s = await HttpClient.GetStreamAsync(archiveUrl);
         using var tr = new StreamReader(s);
         string? line;
         WaybackSnapshot? lastSnap = null;

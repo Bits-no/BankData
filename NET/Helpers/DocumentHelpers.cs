@@ -46,7 +46,6 @@ public class FetchResult
 
     public MediaTypeHeaderValue? ContentType => Headers.ContentType;
     public readonly string? DispositionFilename;
-    internal bool NewDownload;
 
     public FetchResult(MemoryStream data, Uri url, HttpContentHeaders headers)
     {
