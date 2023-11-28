@@ -20,16 +20,25 @@ var diDocCache = Directory.CreateDirectory(".doc_cache");
 Console.WriteLine($"Working with {diDocCache.FullName} ...");
 var ghStepSummaryFile = Environment.GetEnvironmentVariable("GITHUB_STEP_SUMMARY");
 
-var documents = await UpdateChecker.GrabAndDownload.GetDocuments();
+var documentsTask = UpdateChecker.GrabAndDownload.GetDocuments();
+var originalFiles = diDocCache.EnumerateFiles().ToList();
+var filesWithHash = originalFiles.AsParallel().ToDictionary(fi => fi, DocumentHelpers.GetFileSha1Base32Async);
+foreach (var fwh in filesWithHash)
+{
+    var digest = await fwh.Value.ConfigureAwait(false);
+    var fi = fwh.Key;
+    Console.WriteLine($"* Existing local file: {fi.Name}\t{fi.Length}\t{digest}");
+}
+
 var modifiedDocuments = new List<FetchResult>();
-foreach (var doc in documents)
+foreach (var doc in await documentsTask)
 {
     var downloadName = doc.GetFilename();
     var dldocSha1Task = DocumentHelpers.GetSha1Base32Async(doc.Data);
     Console.Write($"\n Validating {doc} -> {downloadName}");
     var fi = new FileInfo(Path.Combine(diDocCache.FullName, downloadName));
 
-    string? fileSha1 = await DocumentHelpers.GetFileSha1Base32Async(fi);
+    var fileSha1 = await DocumentHelpers.GetFileSha1Base32Async(fi);
     var dldocSha1 = await dldocSha1Task;
     if (dldocSha1 != fileSha1)
     {
@@ -46,9 +55,18 @@ foreach (var doc in documents)
         if (ghStepSummaryFile is not null)
             await File.AppendAllTextAsync(ghStepSummaryFile, $"Data: {parsedData}\n");
 
-        using var fs = fi.OpenWrite();
-        doc.Data.WriteTo(fs);
-        fs.Close();
+        using (var fs = fi.OpenWrite())
+        {
+            doc.Data.WriteTo(fs);
+            fs.SetLength(doc.Data.Length); // ensure existing files are truncated to correct size
+            await fs.FlushAsync();
+            fs.Close();
+        }
+
+        fi.Refresh();
+        fileSha1 = await DocumentHelpers.GetFileSha1Base32Async(fi);
+        if (fileSha1 != dldocSha1)
+            throw new Exception($"* {fi.FullName} On-disk hash was {fileSha1} expected {dldocSha1}, size: {fi.Length} expected {doc.Data.Length}");
     }
 }
 
