@@ -12,17 +12,16 @@ public static class GrabAndDownload
         {
             var mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             var archiveMetadataTask = WaybackSnapshot.GetArchiveDataNoExceptions(u, mime);
-            var srcDataResultTask = DocumentHelpers.FetchToMemoryAsync(u);
-            var archiveMetadata = await archiveMetadataTask;
+            var srcDataResultTask = DocumentHelpers.FetchToMemoryAsync(u, archiveMetadataTask);
 
-            var doc = await srcDataResultTask;
+            var doc = await srcDataResultTask.ConfigureAwait(false);
             documents.Add(doc);
-            var srcSha1 = await doc.Data.GetSha1Base32Async();
-            Console.WriteLine($" * Downloaded {u} {srcSha1} {doc.Data.Length:#,##0}");
-            if (archiveMetadata is null ||
-                srcSha1 == archiveMetadata.Digest) continue;
-            Console.WriteLine($"{u} new: {srcSha1} archived {archiveMetadata.Digest}");
-            await WaybackSnapshot.RequestSaveAsync(u);
+            Console.WriteLine($" * Downloaded {u} {doc.Sha1} {doc.Data.Length:#,##0}");
+            if (doc.ArchiveMetadata is null ||
+                doc.Sha1 == doc.ArchiveMetadata.Digest) continue;
+            Console.WriteLine($"{u} new: {doc.Sha1} archived {doc.ArchiveMetadata.Digest}");
+            await WaybackSnapshot.RequestSaveAsync(u).ConfigureAwait(false);
+            doc.ArchiveMetadata = await WaybackSnapshot.GetArchiveDataNoExceptions(u, mime).ConfigureAwait(false);
         }
         return documents;
     }

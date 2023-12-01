@@ -36,18 +36,16 @@ foreach (var doc in await documentsTask)
 {
     var downloadName = doc.GetFilename();
     oldFilesToRemove.Remove(downloadName);
-    var dldocSha1Task = doc.Data.GetSha1Base32Async();
     Console.Write($"\n Validating {doc} -> {downloadName}");
     var fi = new FileInfo(Path.Combine(diDocCache.FullName, downloadName));
 
     var fileSha1 = await fi.GetFileSha1Base32Async();
-    var dldocSha1 = await dldocSha1Task;
-    if (dldocSha1 != fileSha1)
+    if (doc.Sha1 != fileSha1)
     {
-        var logline = $"* from: {fileSha1} -> {dldocSha1} to {fi.FullName}";
+        var logline = $"* from: {fileSha1} -> {doc.Sha1} to {fi.FullName}";
         Console.WriteLine(logline);
         if (ghStepSummaryFile is not null)
-            await File.AppendAllTextAsync(ghStepSummaryFile, $"{logline} src: {doc.Url}\n");
+            await File.AppendAllTextAsync(ghStepSummaryFile, $"{logline} src: {doc}\n");
         modifiedDocuments.Add(doc);
 
         var parsedData = string.Join("\n", DocumentExtractor.ParseXlsx(doc.Data).GeneratePsv()) + "\n";
@@ -67,8 +65,8 @@ foreach (var doc in await documentsTask)
 
         fi.Refresh();
         fileSha1 = await fi.GetFileSha1Base32Async();
-        if (fileSha1 != dldocSha1)
-            throw new Exception($"* {fi.FullName} On-disk hash was {fileSha1} expected {dldocSha1}, size: {fi.Length} expected {doc.Data.Length}");
+        if (fileSha1 != doc.Sha1)
+            throw new Exception($"* {fi.FullName} On-disk hash was {fileSha1} expected {doc.Sha1}, size: {fi.Length} expected {doc.Data.Length}");
     }
 }
 
