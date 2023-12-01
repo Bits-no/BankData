@@ -17,7 +17,7 @@ public static class GrabAndDownload
 
             var doc = await srcDataResultTask;
             documents.Add(doc);
-            var srcSha1 = await DocumentHelpers.GetSha1Base32Async(doc.Data);
+            var srcSha1 = await doc.Data.GetSha1Base32Async();
             Console.WriteLine($" * Downloaded {u} {srcSha1} {doc.Data.Length:#,##0}");
             if (archiveMetadata is null ||
                 srcSha1 == archiveMetadata.Digest) continue;

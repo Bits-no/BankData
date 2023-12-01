@@ -36,11 +36,11 @@ foreach (var doc in await documentsTask)
 {
     var downloadName = doc.GetFilename();
     oldFilesToRemove.Remove(downloadName);
-    var dldocSha1Task = DocumentHelpers.GetSha1Base32Async(doc.Data);
+    var dldocSha1Task = doc.Data.GetSha1Base32Async();
     Console.Write($"\n Validating {doc} -> {downloadName}");
     var fi = new FileInfo(Path.Combine(diDocCache.FullName, downloadName));
 
-    var fileSha1 = await DocumentHelpers.GetFileSha1Base32Async(fi);
+    var fileSha1 = await fi.GetFileSha1Base32Async();
     var dldocSha1 = await dldocSha1Task;
     if (dldocSha1 != fileSha1)
     {
@@ -66,7 +66,7 @@ foreach (var doc in await documentsTask)
         }
 
         fi.Refresh();
-        fileSha1 = await DocumentHelpers.GetFileSha1Base32Async(fi);
+        fileSha1 = await fi.GetFileSha1Base32Async();
         if (fileSha1 != dldocSha1)
             throw new Exception($"* {fi.FullName} On-disk hash was {fileSha1} expected {dldocSha1}, size: {fi.Length} expected {doc.Data.Length}");
     }
