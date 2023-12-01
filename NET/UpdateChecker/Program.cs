@@ -22,6 +22,7 @@ var ghStepSummaryFile = Environment.GetEnvironmentVariable("GITHUB_STEP_SUMMARY"
 
 var documentsTask = UpdateChecker.GrabAndDownload.GetDocuments();
 var originalFiles = diDocCache.EnumerateFiles().ToList();
+var oldFilesToRemove = originalFiles.ToDictionary(fi => Path.GetFileName(fi.Name));
 var filesWithHash = originalFiles.AsParallel().ToDictionary(fi => fi, DocumentHelpers.GetFileSha1Base32Async);
 foreach (var fwh in filesWithHash)
 {
@@ -34,6 +35,7 @@ var modifiedDocuments = new List<FetchResult>();
 foreach (var doc in await documentsTask)
 {
     var downloadName = doc.GetFilename();
+    oldFilesToRemove.Remove(downloadName);
     var dldocSha1Task = DocumentHelpers.GetSha1Base32Async(doc.Data);
     Console.Write($"\n Validating {doc} -> {downloadName}");
     var fi = new FileInfo(Path.Combine(diDocCache.FullName, downloadName));
@@ -68,6 +70,12 @@ foreach (var doc in await documentsTask)
         if (fileSha1 != dldocSha1)
             throw new Exception($"* {fi.FullName} On-disk hash was {fileSha1} expected {dldocSha1}, size: {fi.Length} expected {doc.Data.Length}");
     }
+}
+
+foreach (var fi in oldFilesToRemove.Values)
+{
+    Console.WriteLine($"* Cleanup old file: {Path.GetFileName(fi.Name)}\t{fi.Length}");
+    fi.Delete();
 }
 
 if (modifiedDocuments.Count != 0)
