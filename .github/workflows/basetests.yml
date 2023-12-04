@@ -12,6 +12,7 @@ env:
   Config: Release
 
 permissions:
+  pull-requests: write
   id-token: write
   contents: read
   checks: write
