@@ -10,8 +10,9 @@ env:
 name: UpdateChecker Issue creators
 
 permissions:
-  contents: read
+  contents: write
   issues: write
+  pull-requests: write
 
 jobs:
   updatechecker:
@@ -56,8 +57,38 @@ jobs:
       - name: Run Update Checker ${{ github.server_url }}/${{ env.actionpath }}
         id: update-checker
         run: |
-          ./NET/UpdateChecker/bin/Release/net7.0/UpdateChecker || (ls -lh; find .; exit 1)
+          ./NET/UpdateChecker/bin/Release/*/UpdateChecker || (ls -lh; find .; exit 1)
           [ -f "$IssueTemplate" ] && cat $IssueTemplate && echo newdata=true >> "$GITHUB_OUTPUT" || echo No $IssueTemplate found
+      - name: Stage Data to git
+        if: steps.update-checker.outputs.newdata == 'true'
+        run:  git add Data
+      - name: Check for changes
+        id:   data-changes
+        run:  git diff --staged --quiet || echo "staged=true" >> "$GITHUB_OUTPUT"
+      - name: Update IssueTemplate with Data diff
+        if:   steps.data-changes.outputs.staged == 'true'
+        run: |
+          echo "\`\`\`diff" >> $IssueTemplate
+          git diff --staged >> $IssueTemplate
+          echo "\`\`\`" >> $IssueTemplate
+          cat $IssueTemplate
+          cat $IssueTemplate >> "$GITHUB_STEP_SUMMARY"
+      - name: Create UpdateCheckerDiscovery branch
+        if:   steps.data-changes.outputs.staged == 'true'
+        run: |
+          git checkout -b UpdateCheckerDiscovery
+          git config user.email ""
+          git config user.name "Action UpdateChecker"
+          git commit -m "DATA UpdateChecker Changes"
+      - name: Push UpdateCheckerDiscovery branch
+        if:   steps.data-changes.outputs.staged == 'true'
+        run:  git push origin HEAD:refs/heads/UpdateCheckerDiscovery -f
+      - name: doc artifacts
+        if:   always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: docs-from-cache
+          path: .doc_cache
       - name: Post List .doc_cache
         run: ls -lha .doc_cache || ls -lha
       - name: Create Issue from ${{ env.IssueTemplate }}
@@ -73,3 +104,9 @@ jobs:
       - name: Issue created info ${{ steps.create-issue.outputs.number }}
         if: steps.create-issue.outputs.number != ''
         run: echo Created issue ${{ steps.create-issue.outputs.number }} at ${{ steps.create-issue.outputs.url }}
+      - name: Pull request UpdateCheckerDiscovery
+        if:   steps.data-changes.outputs.staged == 'true'
+        id:   create-pr
+        run:  echo pr=$(gh pr create -B main -H UpdateCheckerDiscovery --title 'UpdateChecker Data changes' --body 'Created by Github action ${{ steps.create-issue.outputs.url }} From ${{ steps.setupurl.outputs.actionjoburl }}') >> "$GITHUB_OUTPUT"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
