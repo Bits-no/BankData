@@ -48,7 +48,10 @@ foreach (var doc in await documentsTask)
             await File.AppendAllTextAsync(ghStepSummaryFile, $"{logline} src: {doc}\n");
         modifiedDocuments.Add(doc);
 
-        var parsedData = string.Join("\n", DocumentExtractor.ParseXlsx(doc.Data).GeneratePsv()) + "\n";
+        var xlsData = doc.ContentType?.MediaType == "application/vnd.ms-excel"
+            ? DocumentExtractor.ParseXls(doc.Data)
+            : DocumentExtractor.ParseXlsx(doc.Data);
+        var parsedData = string.Join("\n", xlsData.GeneratePsv()) + "\n";
         var sourcePsv = new FileInfo(Path.Combine(diDataDir.FullName, "source.psv"));
         await File.WriteAllTextAsync(sourcePsv.FullName, parsedData);
         Console.WriteLine($"Updated {sourcePsv.FullName}");

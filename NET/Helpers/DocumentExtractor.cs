@@ -47,6 +47,26 @@ public static class DocumentExtractor
         }
     }
 
+    public static IEnumerable<string[]> ParseXls(Stream data)
+    {
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+        using var reader = ExcelDataReader.ExcelReaderFactory.CreateReader(data, new() {
+            LeaveOpen = true,
+        });
+        do
+        {
+            while (reader.Read())
+            {
+                var row = new List<string>();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    row.Add(Convert.ToString(reader.GetValue(i) ?? "")!.Trim());
+                }
+                yield return row.ToArray();
+            }
+        } while (reader.NextResult());
+    }
+
     private class BankDetailRaw
     {
         // Bank identifier|BIC|Bank
