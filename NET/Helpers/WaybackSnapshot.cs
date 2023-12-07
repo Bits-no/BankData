@@ -17,11 +17,11 @@ public class WaybackSnapshot
 #endif
     }
 
-    public static async Task<WaybackSnapshot?> GetArchiveDataNoExceptions(Uri url, string? filterMime = "application/pdf")
+    public static async Task<WaybackSnapshot?> GetArchiveDataNoExceptions(Uri url)
     {
         try
         {
-            return await GetArchiveData(url, filterMime);
+            return await GetArchiveData(url);
         }
         catch (Exception ex)
         {
@@ -32,12 +32,12 @@ public class WaybackSnapshot
         }
     }
 
-    public static async Task<WaybackSnapshot?> GetArchiveData(Uri url, string? filterMime = "application/pdf")
+    public static async Task<WaybackSnapshot?> GetArchiveData(Uri url)
     {
         var archiveUrl = new Uri($"{ArchiveBase}cdx/search/cdx?fl=timestamp,original,mimetype,digest,length&from={DateTime.Now.Year - 1}&filter=statuscode:200&collapse=digest&url={url}");
         try
         {
-            return await GetParseArchiveInner(archiveUrl, filterMime);
+            return await GetParseArchiveInner(archiveUrl);
         }
         catch (HttpRequestException ex)
         {
@@ -45,7 +45,7 @@ public class WaybackSnapshot
         }
     }
 
-    private static async Task<WaybackSnapshot?> GetParseArchiveInner(Uri archiveUrl, string? filterMime)
+    private static async Task<WaybackSnapshot?> GetParseArchiveInner(Uri archiveUrl)
     {
         using var s = await HttpClient.GetStreamAsync(archiveUrl);
         using var tr = new StreamReader(s);
@@ -63,8 +63,6 @@ public class WaybackSnapshot
                 Length = Convert.ToInt64(split[4]),
             };
             Console.WriteLine($"Archive line: {snap}");
-            if (filterMime != null &&
-                snap.Mimetype != filterMime) continue;
             if (lastSnap is null ||
                 snap.Timestamp > lastSnap.Timestamp) lastSnap = snap;
         }
