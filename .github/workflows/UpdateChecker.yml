@@ -107,6 +107,6 @@ jobs:
       - name: Pull request UpdateCheckerDiscovery
         if:   steps.data-changes.outputs.staged == 'true'
         id:   create-pr
-        run:  echo pr=$(gh pr create -B main -H UpdateCheckerDiscovery --title 'UpdateChecker Data changes' --body 'Created by Github action ${{ steps.create-issue.outputs.url }} From ${{ steps.setupurl.outputs.actionjoburl }}') >> "$GITHUB_OUTPUT"
+        run:  echo pr=$(gh pr create -B main -H UpdateCheckerDiscovery --title 'UpdateChecker Data changes' --body 'Created by Github action ${{ steps.create-issue.outputs.url }} From ${{ steps.setupurl.outputs.actionjoburl }} Fixes #${{ steps.create-issue.outputs.number }}') >> "$GITHUB_OUTPUT"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
