@@ -22,13 +22,24 @@ public static class DocumentExtractor
         return dictionary;
     }
 
-    public static IEnumerable<string[]> ParseXlsx(Stream data)
+    public class ParsedXls
+    {
+        public List<string[]> Rows { get; internal set; } = [];
+
+        public DateTime? Modified { get; internal set; }
+
+        public IEnumerable<string> GeneratePsv() => GeneratePsvFromRows(Rows);
+    }
+
+    public static ParsedXls ParseXlsx(Stream data)
     {
         using var spd = SpreadsheetDocument.Open(data, false);
         var wbp = spd?.WorkbookPart;
+        var parsed = new ParsedXls();
         if (wbp is null)
-            yield break;
+            return parsed;
 
+        parsed.Modified = spd!.PackageProperties.Modified;
         var sharedStringdict = GetSharedStringDictionary(wbp.GetPartsOfType<SharedStringTablePart>().First());
         var worksheetPart = wbp.WorksheetParts.First();
         var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
@@ -43,16 +54,19 @@ public static class DocumentExtractor
                     text = sharedStringdict[int.Parse(text)];
                 row.Add(text);
             }
-            yield return row.ToArray();
+            parsed.Rows.Add([.. row]);
         }
+        return parsed;
     }
 
-    public static IEnumerable<string[]> ParseXls(Stream data)
+    public static ParsedXls ParseXls(Stream data)
     {
         System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
         using var reader = ExcelDataReader.ExcelReaderFactory.CreateReader(data, new() {
             LeaveOpen = true,
         });
+        var parsed = new ParsedXls();
+        // parsed.Modified = https://github.com/ExcelDataReader/ExcelDataReader/issues/308
         do
         {
             while (reader.Read())
@@ -62,9 +76,10 @@ public static class DocumentExtractor
                 {
                     row.Add(Convert.ToString(reader.GetValue(i) ?? "")!.Trim());
                 }
-                yield return row.ToArray();
+                parsed.Rows.Add([.. row]);
             }
         } while (reader.NextResult());
+        return parsed;
     }
 
     private class BankDetailRaw
@@ -129,7 +144,7 @@ public static class DocumentExtractor
         public override string ToString() => string.Join("|", Interval, BIC, Bank);
     }
 
-    public static IEnumerable<string> GeneratePsv(this IEnumerable<string[]> rows)
+    private static IEnumerable<string> GeneratePsvFromRows(IEnumerable<string[]> rows)
     {
         var list = new List<BankDetailRaw>();
         foreach (var row in rows)
