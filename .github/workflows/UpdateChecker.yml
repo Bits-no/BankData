@@ -50,7 +50,7 @@ jobs:
           dotnet-version: 7.0.x
       - run: dotnet restore ${{ env.Project }}
         if: steps.cache-build.outputs.cache-hit != 'true'
-      - run: dotnet build $Project --configuration Release --no-restore
+      - run: dotnet build ${{ env.Project }} --configuration Release --no-restore
         if: steps.cache-build.outputs.cache-hit != 'true'
       - name: Pre List .doc_cache
         run: ls -lha .doc_cache || ls -lha
@@ -76,13 +76,16 @@ jobs:
       - name: Create UpdateCheckerDiscovery branch
         if:   steps.data-changes.outputs.staged == 'true'
         run: |
-          git checkout -b UpdateCheckerDiscovery
+          git checkout -b UpdateCheckerDiscovery || git checkout UpdateCheckerDiscovery
           git config user.email ""
           git config user.name "Action UpdateChecker"
-          git commit -m "DATA UpdateChecker Changes"
+          git commit --date "${{ env.DATA_MODIFIED_DATE }}" -m "DATA UpdateChecker Changes ${{ env.DATA_MODIFIED_DATE }}"
+          git tag v${{ env.DATA_VERSION }}
       - name: Push UpdateCheckerDiscovery branch
         if:   steps.data-changes.outputs.staged == 'true'
-        run:  git push origin HEAD:refs/heads/UpdateCheckerDiscovery -f
+        run: |
+          git push origin HEAD:refs/heads/UpdateCheckerDiscovery -f
+          git push origin v${{ env.DATA_VERSION }}
       - name: doc artifacts
         if:   always()
         uses: actions/upload-artifact@v4
@@ -107,6 +110,6 @@ jobs:
       - name: Pull request UpdateCheckerDiscovery
         if:   steps.data-changes.outputs.staged == 'true'
         id:   create-pr
-        run:  echo pr=$(gh pr create -B main -H UpdateCheckerDiscovery --title 'UpdateChecker Data changes' --body 'Created by Github action ${{ steps.create-issue.outputs.url }} From ${{ steps.setupurl.outputs.actionjoburl }} Fixes #${{ steps.create-issue.outputs.number }}') >> "$GITHUB_OUTPUT"
+        run:  echo pr=$(gh pr create -B main -H UpdateCheckerDiscovery --title 'UpdateChecker Data changes ${{ env.DATA_MODIFIED_DATE }}' --body 'Created by Github action ${{ steps.create-issue.outputs.url }} From ${{ steps.setupurl.outputs.actionjoburl }} Fixes ${{ format('#{0}', steps.create-issue.outputs.number) }}') >> "$GITHUB_OUTPUT"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
