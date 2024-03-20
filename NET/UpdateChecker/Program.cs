@@ -19,7 +19,7 @@ while (true)
 var diDocCache = Directory.CreateDirectory(".doc_cache");
 Console.WriteLine($"Working with {diDocCache.FullName} ...");
 var ghStepSummaryFile = Environment.GetEnvironmentVariable("GITHUB_STEP_SUMMARY");
-var ghEnvFile = Environment.GetEnvironmentVariable("$GITHUB_ENV");
+var ghEnvFile = Environment.GetEnvironmentVariable("GITHUB_ENV");
 
 var documentsTask = UpdateChecker.GrabAndDownload.GetDocuments();
 var originalFiles = diDocCache.EnumerateFiles().ToList();
@@ -62,8 +62,9 @@ foreach (var doc in await documentsTask)
         dateModified = xlsData.Modified ?? DateTime.Now;
         if (ghEnvFile is not null)
         {
-            await File.AppendAllTextAsync(ghEnvFile, $"DATA_MODIFIED_DATE={xlsData.Modified?.ToUniversalTime():o}\n");
-            await File.AppendAllTextAsync(ghEnvFile, $"DATA_VERSION={xlsData.Modified:yyyy'.'m'.d'}\n");
+            await File.AppendAllTextAsync(ghEnvFile,
+                $"DATA_MODIFIED_DATE={xlsData.Modified?.ToUniversalTime():o}\n" +
+                $"DATA_VERSION={xlsData.Modified:yyyy'.'M'.'d}\n");
         }
 
         using (var fs = fi.OpenWrite())
