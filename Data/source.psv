@@ -213,7 +213,7 @@
 2680|DNBANOKK|DNB Bank ASA
 2685|DNBANOKK|DNB Bank ASA
 2694|SPSONO22|Sparebanken Sør
-2699|HJARNO21|Hjartdal og Gransherad Sparebank
+2699|HJARNO21|Skue Sparebank
 2704-2705|SPSONO22|Sparebanken Sør
 2708|SPSONO22|Sparebanken Sør
 2711|BSPANO21|Sparebanken DIN
@@ -277,9 +277,9 @@
 3240-3244|HAUGNO21|Haugesund Sparebank
 3247|HAUGNO21|Haugesund Sparebank
 3250|SPRONO22|SpareBank 1 SR-Bank ASA
-3260-3261|SASKNO22|Sandnes Sparebank
-3264-3265|SASKNO22|Sandnes Sparebank
-3268|SASKNO22|Sandnes Sparebank
+3260-3261|SASKNO22|Rogaland Sparebank
+3264-3265|SASKNO22|Rogaland Sparebank
+3268|SASKNO22|Rogaland Sparebank
 3270|SPRONO22|SpareBank 1 SR-Bank ASA
 3280|SPRONO22|SpareBank 1 SR-Bank ASA
 3290|KLEPNO21|Jæren Sparebank
@@ -295,7 +295,7 @@
 3344|SPRONO22|SpareBank 1 SR-Bank ASA
 3347|SPRONO22|SpareBank 1 SR-Bank ASA
 3350|SPRONO22|SpareBank 1 SR-Bank ASA
-3353|HJELNO21|Hjelmeland Sparebank
+3353|HJELNO21|Rogaland Sparebank
 3361|SKAANO21|Skudenes & Aakra Sparebank
 3364|SPRONO22|SpareBank 1 SR-Bank ASA
 3373|SPRONO22|SpareBank 1 SR-Bank ASA
@@ -318,7 +318,6 @@
 3530|SPAVNOBB|Sparebanken Vest
 3535|SPRONO22|SpareBank 1 SR-Bank ASA
 3540|SPAVNOBB|Sparebanken Vest
-3543|ETNENO21|Sparebanken Vest Etne
 3546|SPAVNOBB|Sparebanken Vest
 3562|SPAVNOBB|Sparebanken Vest
 3565|SPAVNOBB|Sparebanken Vest
@@ -1073,7 +1072,7 @@
 9535-9538|HANDNOKK|Handelsbanken
 9581|VVELNO21|Voss Veksel-og Landmandsbank
 9590|ESSENO22|Skandinaviska Enskilda Banken AB (publ)
-9600|SASKNO22|Sandnes Sparebank
+9600|SASKNO22|Rogaland Sparebank
 9602|LUNADK2C|Lunar Bank A/S
 9615|BTWONOK1|Bluestep Bank AB (publ), filial Oslo
 9650-9657|SPTRNO22|SpareBank 1 SMN
