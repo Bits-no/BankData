@@ -117,7 +117,7 @@
 2010|DNBANOKK|DNB Bank ASA
 2020|RIRINO21|Sparebank 1 Ringerike Hadeland
 2030|RIRINO21|Sparebank 1 Ringerike Hadeland
-2050-2051|TOTENO21|Totens Sparebank
+2050-2051|TOTENO21|SpareBank 1 Østlandet
 2065|DNBANOKK|DNB Bank ASA
 2070|DNBANOKK|DNB Bank ASA
 2073|DNBANOKK|DNB Bank ASA
@@ -337,36 +337,36 @@
 3652|SPAVNOBB|Sparebanken Vest
 3658|SPAVNOBB|Sparebanken Vest
 3670|SPAVNOBB|Sparebanken Vest
-3700|SOFJNO22|Sparebanken Sogn og Fjordane
-3703-3710|SOFJNO22|Sparebanken Sogn og Fjordane
+3700|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3703-3710|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3720|SPAVNOBB|Sparebanken Vest
 3730|IDRENO21|Sogn Sparebank
 3739|IDRENO21|Sogn Sparebank
-3740-3741|SOFJNO22|Sparebanken Sogn og Fjordane
+3740-3741|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3745|IDRENO21|Sogn Sparebank
-3760|SOFJNO22|Sparebanken Sogn og Fjordane
-3770|SOFJNO22|Sparebanken Sogn og Fjordane
-3775-3776|SOFJNO22|Sparebanken Sogn og Fjordane
-3781|SOFJNO22|Sparebanken Sogn og Fjordane
+3760|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3770|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3775-3776|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3781|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3785|LUSKNO21|Luster Sparebank
 3790|SPAVNOBB|Sparebanken Vest
-3795|SOFJNO22|Sparebanken Sogn og Fjordane
+3795|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3800|IDRENO21|Sogn Sparebank
-3805|SOFJNO22|Sparebanken Sogn og Fjordane
+3805|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3816|SPAVNOBB|Sparebanken Vest
-3817|SOFJNO22|Sparebanken Sogn og Fjordane
-3820|SOFJNO22|Sparebanken Sogn og Fjordane
-3829|SOFJNO22|Sparebanken Sogn og Fjordane
-3832|SOFJNO22|Sparebanken Sogn og Fjordane
-3835-3837|SOFJNO22|Sparebanken Sogn og Fjordane
+3817|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3820|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3829|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3832|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3835-3837|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3838|IDRENO21|Sogn Sparebank
-3841|SOFJNO22|Sparebanken Sogn og Fjordane
+3841|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3845|SPAVNOBB|Sparebanken Vest
-3847-3848|SOFJNO22|Sparebanken Sogn og Fjordane
+3847-3848|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3853|SPAVNOBB|Sparebanken Vest
 3855|SPAVNOBB|Sparebanken Vest
-3880|SOFJNO22|Sparebanken Sogn og Fjordane
-3890|SOFJNO22|Sparebanken Sogn og Fjordane
+3880|SOFJNO22|SpareBank 1 Sogn og Fjordane
+3890|SOFJNO22|SpareBank 1 Sogn og Fjordane
 3900-3902|SPARNO22|Sparebanken Møre
 3904-3907|SPARNO22|Sparebanken Møre
 3909-3910|SPARNO22|Sparebanken Møre
@@ -1060,7 +1060,7 @@
 9355-9358|NORWNOK1|Bank Norwegian, en filial av NOBA Bank Group AB (publ)
 9364-9365|LANDNOK1|Landkreditt Bank AS
 9371-9374|HANDNOKK|Handelsbanken
-9376|MYASNOK1|MyBank
+9376|MYASNOK1|Heder Bank ASA
 9380|PTAANOK1|Pareto Bank ASA
 9480-9481|HANDNOKK|Handelsbanken
 9483-9495|HANDNOKK|Handelsbanken
