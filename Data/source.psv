@@ -11,11 +11,11 @@
 1000|DNBANOKK|DNB Bank ASA
 1010|DNBANOKK|DNB Bank ASA
 1014|DNBANOKK|DNB Bank ASA
-1020|EIDSNO21|Eidsberg Sparebank
-1029|EIDSNO21|Eidsberg Sparebank
+1020|EIDSNO21|Marker og Eidsberg Sparebank
+1029|EIDSNO21|Marker og Eidsberg Sparebank
 1030|RYGSNO21|Sparebank1 Østfold Akershus
 1040|DNBANOKK|DNB Bank ASA
-1050-1051|MASPNO21|Marker Sparebank
+1050-1051|MASPNO21|Marker og Eidsberg Sparebank
 1061|DNBANOKK|DNB Bank ASA
 1064|DNBANOKK|DNB Bank ASA
 1070|DNBANOKK|DNB Bank ASA
@@ -389,7 +389,7 @@
 4020|SPARNO22|Sparebanken Møre
 4025|NORVNO21|SpareBank 1 Nordmøre
 4030|SPARNO22|Sparebanken Møre
-4035|SUSANO21|Sunndal Sparebank
+4035|SUSANO21|Tinde Sparebank
 4040|NORVNO21|SpareBank 1 Nordmøre
 4045|SPARNO22|Sparebanken Møre
 4050|SPARNO22|Sparebanken Møre
@@ -397,12 +397,12 @@
 4060|ORKONO21|Ørskog Sparebank
 4065|SPARNO22|Sparebanken Møre
 4068|SPTRNO22|SpareBank 1 SMN
-4075|BFHSNO21|Romsdal Sparebank
+4075|BFHSNO21|Tinde Sparebank
 4087|SPARNO22|Sparebanken Møre
 4090|NORVNO21|SpareBank 1 Nordmøre
 4093|SPARNO22|Sparebanken Møre
-4100|BFHSNO21|Romsdal Sparebank
-4106|BFHSNO21|Romsdal Sparebank
+4100|BFHSNO21|Tinde Sparebank
+4106|BFHSNO21|Tinde Sparebank
 4108|SPARNO22|Sparebanken Møre
 4111|RINDNO21|Rindal Sparebank
 4120|SPARNO22|Sparebanken Møre
@@ -987,7 +987,7 @@
 8194|DABANO22|Danske Bank
 8200|DNBANOKK|DNB Bank ASA
 8205|DNBANOKK|DNB Bank ASA
-8210-8211|DNBANOKK|DNB Bank ASA
+8210|DNBANOKK|DNB Bank ASA
 8215|DNBANOKK|DNB Bank ASA
 8220|SPSONO22|Sparebanken Norge - Sør
 8225|DNBANOKK|DNB Bank ASA
