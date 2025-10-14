@@ -15,7 +15,7 @@
 1029|EIDSNO21|Marker og Eidsberg Sparebank
 1030|RYGSNO21|Sparebank1 Østfold Akershus
 1040|DNBANOKK|DNB Bank ASA
-1050-1051|MASPNO21|Marker og Eidsberg Sparebank
+1050-1051|EIDSNO21|Marker og Eidsberg Sparebank
 1061|DNBANOKK|DNB Bank ASA
 1064|DNBANOKK|DNB Bank ASA
 1070|DNBANOKK|DNB Bank ASA
@@ -214,7 +214,7 @@
 2680|DNBANOKK|DNB Bank ASA
 2685|DNBANOKK|DNB Bank ASA
 2694|SPSONO22|Sparebanken Norge - Sør
-2699|HJARNO21|Skue Sparebank
+2699|NEPRNO21|Skue Sparebank
 2704-2705|SPSONO22|Sparebanken Norge - Sør
 2708|SPSONO22|Sparebanken Norge - Sør
 2711|BSPANO21|Sparebanken DIN
@@ -389,7 +389,7 @@
 4020|SPARNO22|Sparebanken Møre
 4025|NORVNO21|SpareBank 1 Nordmøre
 4030|SPARNO22|Sparebanken Møre
-4035|SUSANO21|Tinde Sparebank
+4035|BFHSNO21|Tinde Sparebank
 4040|NORVNO21|SpareBank 1 Nordmøre
 4045|SPARNO22|Sparebanken Møre
 4050|SPARNO22|Sparebanken Møre
