@@ -47,7 +47,7 @@ jobs:
         if: steps.cache-build.outputs.cache-hit != 'true'
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
       - run: dotnet restore ${{ env.Project }}
         if: steps.cache-build.outputs.cache-hit != 'true'
       - run: dotnet build ${{ env.Project }} --configuration Release --no-restore

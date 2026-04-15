@@ -42,7 +42,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v5
         with:
-          dotnet-version: 8.0.x
+          dotnet-version: 10.0.x
       - name: Install dependencies
         run: dotnet restore NET || (ls -lha && exit 1)
       - name: Build ${{ env.buildopts }}
