@@ -4,7 +4,7 @@ public class SimpleValidationsTests
 {
     [Test]
     public void SourcePsvHasDataTest() =>
-        Assert.That(Data.Banks.SourcePsv, Is.Not.Null.Or.Empty,
+        Assert.That(Data.Banks.SourcePsv, Is.Not.Null.And.Not.Empty,
             Data.Banks.SourcePsv);
 
     [TestCase("source.psv")]
