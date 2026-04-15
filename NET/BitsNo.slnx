@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Directory.Build.props" />
+  </Folder>
+  <Project Path="BitsNo.Data/BitsNo.Data.csproj" />
+  <Project Path="BitsNo.Tests/BitsNo.Tests.csproj" />
+  <Project Path="UpdateChecker/UpdateChecker.csproj" />
+</Solution>
