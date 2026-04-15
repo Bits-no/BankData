@@ -42,9 +42,9 @@ public static class DocumentExtractor
         parsed.Modified = spd!.PackageProperties.Modified;
         var sharedStringdict = GetSharedStringDictionary(wbp.GetPartsOfType<SharedStringTablePart>().First());
         var worksheetPart = wbp.WorksheetParts.First();
-        var sheetData = worksheetPart.Worksheet.Elements<SheetData>().First();
+        var sheetData = worksheetPart.Worksheet?.Elements<SheetData>().First();
         string text;
-        foreach (var r in sheetData.Elements<Row>())
+        foreach (var r in sheetData?.Elements<Row>() ?? [])
         {
             var row = new List<string>();
             foreach (var c in r.Elements<Cell>())
