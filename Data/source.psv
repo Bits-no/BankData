@@ -125,8 +125,10 @@
 2075|DNBANOKK|DNB Bank ASA
 2081|DNBANOKK|DNB Bank ASA
 2085|LOSKNO21|Sparebank 1 Lom og Sjåk
+2087|LOSKNO21|Sparebank 1 Lom og Sjåk
 2090|DNBANOKK|DNB Bank ASA
 2095|SGFSNO21|Sparebank 1 Gudbrandsdal
+2097|SGFSNO21|Sparebank 1 Gudbrandsdal
 2100|DNBANOKK|DNB Bank ASA
 2105|DNBANOKK|DNB Bank ASA
 2120|DNBANOKK|DNB Bank ASA
@@ -200,10 +202,10 @@
 2606|BLSPNO21|Skagerrak Sparebank
 2610|SPRONO22|SpareBank 1 Sør-Norge ASA
 2620-2621|NEPRNO21|Skue Sparebank
-2630|BSPANO21|Sparebanken DIN
-2632|BSPANO21|Sparebanken DIN
-2635|DRANNO21|Drangedal Sparebank
-2639|DRANNO21|Drangedal Sparebank
+2630|BSPANO21|Telemark Sparebank
+2632|BSPANO21|Telemark Sparebank
+2635|DRANNO21|Telemark Sparebank
+2639|DRANNO21|Telemark Sparebank
 2646|DNBANOKK|DNB Bank ASA
 2650|SPRONO22|SpareBank 1 Sør-Norge ASA
 2655-2656|BLSPNO21|Skagerrak Sparebank
@@ -217,7 +219,7 @@
 2699|NEPRNO21|Skue Sparebank
 2704-2705|SPSONO22|Sparebanken Norge - Sør
 2708|SPSONO22|Sparebanken Norge - Sør
-2711|BSPANO21|Sparebanken DIN
+2711|BSPANO21|Telemark Sparebank
 2714|SPSONO22|Sparebanken Norge - Sør
 2717|DNBANOKK|DNB Bank ASA
 2800-2801|SPSONO22|Sparebanken Norge - Sør
